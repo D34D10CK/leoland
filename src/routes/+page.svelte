@@ -4,6 +4,8 @@
 	import * as THREE from 'three';
 	import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 
+	const targetFrameTime = 1000 / 60; //60fps
+
 	class ThreeScene {
 		scene: THREE.Scene;
 		camera: THREE.PerspectiveCamera;
@@ -107,10 +109,11 @@
 			this.particles2.position.z = this.particles1.position.z - 2000;
 		}
 
-		animate(): void {
+		animate(timeDelta: number): void {
 			//move the stars, and wrap the point clouds once they are no longer on screen
-			this.particles1.position.z += 10;
-			this.particles2.position.z += 10;
+			const timeMultiplier = timeDelta / targetFrameTime;
+			this.particles1.position.z += 10 * timeMultiplier;
+			this.particles2.position.z += 10 * timeMultiplier;
 			if (this.particles1.position.z > 1015) {
 				this.particles1.position.z = -3015;
 			}
@@ -157,9 +160,10 @@
 			scene.arrows = this;
 		}
 
-		animate(): void {
-			this.arrow1.rotation.z += 0.1;
-			this.arrow2.rotation.z -= 0.1;
+		animate(timeDelta: number): void {
+			const timeMultiplier = timeDelta / targetFrameTime;
+			this.arrow1.rotation.z += 0.1 * timeMultiplier;
+			this.arrow2.rotation.z -= 0.1 * timeMultiplier;
 		}
 	}
 
@@ -183,10 +187,10 @@
 			scene.scene.add(this.logo);
 		}
 
-		animate(): void {
+		animate(timeDelta: number): void {
 			this.logo.rotation.y = Math.sin(this.counter) / 4;
 			this.logo.rotation.z = Math.cos(this.counter) / 4;
-			this.counter += 0.05;
+			this.counter += 0.05 * (timeDelta / targetFrameTime);
 		}
 	}
 
@@ -224,12 +228,19 @@
 
 		container.appendChild(threeScene.renderer.domElement);
 
+		let lastTime = performance.now();
+		let timeDelta = 0;
+
 		let frame = requestAnimationFrame(function loop() {
+			const currentTime = performance.now();
+			timeDelta = currentTime - lastTime;
+			lastTime = currentTime;
+
 			frame = requestAnimationFrame(loop);
 
-			stars.animate();
-			leoland.animate();
-			arrows.animate();
+			stars.animate(timeDelta);
+			leoland.animate(timeDelta);
+			arrows.animate(timeDelta);
 
 			threeScene.render();
 		});

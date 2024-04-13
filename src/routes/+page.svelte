@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
 	import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -241,12 +242,12 @@
 <div id="menu">
 	<nav>
 		<a
-			href="/"
+			href="{base}"
 			on:mouseover={(event) => threeScene.selectElement(event.target)}
 			on:focus={(event) => threeScene.selectElement(event.target)}>COMING</a
 		><br />
 		<a
-			href="/"
+			href="{base}"
 			on:mouseover={(event) => threeScene.selectElement(event.target)}
 			on:focus={(event) => threeScene.selectElement(event.target)}>SOON</a
 		><br />

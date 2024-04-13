@@ -258,7 +258,7 @@
 		font-family: DS-Digital;
 		src: url('/fonts/DS-DIGIT.ttf');
 	}
-	canvas {
+	/* canvas {
 		margin: 0;
 		position: fixed;
 		top: 0px;
@@ -266,7 +266,7 @@
 		left: 0px;
 		right: 0px;
 		z-index: -1000;
-	}
+	} */
 	#menu {
 		position: absolute;
 		top: 55%;

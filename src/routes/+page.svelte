@@ -239,6 +239,9 @@
 </script>
 
 <svelte:window on:resize={threeScene.handleWindowResize} />
+<svelte:head>
+	<title>Welcome to leoland!</title>
+</svelte:head>
 
 <div id="menu">
 	<nav>

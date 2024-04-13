@@ -15,6 +15,7 @@
 			this.selectElement = this.selectElement.bind(this);
 
 			this.scene = new THREE.Scene();
+			this.scene.fog = new THREE.Fog(0x000000, 1, 1500);
 
 			this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 			this.camera.position.z = 15;
@@ -208,6 +209,7 @@
 	}
 
 	let threeScene: ThreeScene;
+	let container: HTMLDivElement;
 	onMount(async () => {
 		threeScene = new ThreeScene();
 
@@ -219,9 +221,8 @@
 
 		const arrows = await Arrows.load();
 		arrows.addToScene(threeScene);
-		// threeScene.arrows = arrows;
 
-		document.body.appendChild(threeScene.renderer.domElement);
+		container.appendChild(threeScene.renderer.domElement);
 
 		let frame = requestAnimationFrame(function loop() {
 			frame = requestAnimationFrame(loop);
@@ -253,18 +254,11 @@
 		><br />
 	</nav>
 </div>
+<div bind:this={container} />
 
 <style>
 	@import url('https://fonts.cdnfonts.com/css/ds-digital');
-	/* canvas {
-		margin: 0;
-		position: fixed;
-		top: 0px;
-		bottom: 0px;
-		left: 0px;
-		right: 0px;
-		z-index: -1000;
-	} */
+
 	#menu {
 		position: absolute;
 		top: 55%;
@@ -278,6 +272,7 @@
 		display: inline-block;
 		font-family: DS-Digital, sans-serif;
 		font-weight: bold;
+		font-style: italic;
 		padding: 0 0.5em 0 0.5em;
 		text-decoration: none;
 		color: rgba(0, 198, 255, 0.6);

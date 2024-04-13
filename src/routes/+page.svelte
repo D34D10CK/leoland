@@ -94,7 +94,7 @@
 			const pMaterial = new THREE.PointsMaterial({
 				color: 0xffffff,
 				size: 5,
-				map: new THREE.TextureLoader().load('/textures/star.png'),
+				map: new THREE.TextureLoader().load(`${base}/textures/star.png`),
 				blending: THREE.AdditiveBlending,
 				transparent: true
 			});
@@ -134,7 +134,7 @@
 		}
 
 		static async load(): Promise<Arrows> {
-			const arrow1 = await new OBJLoader().loadAsync('/models/arrow.obj');
+			const arrow1 = await new OBJLoader().loadAsync(`${base}/models/arrow.obj`);
 			convertToWireFrame(arrow1);
 			//hide arrows
 			arrow1.position.z = -2000;
@@ -171,7 +171,7 @@
 		}
 
 		static async load(): Promise<Logo> {
-			const logo = await new OBJLoader().loadAsync('/models/leoland.obj');
+			const logo = await new OBJLoader().loadAsync(`${base}/models/leoland.obj`);
 			convertToWireFrame(logo);
 			return new Logo(logo);
 		}
@@ -242,12 +242,12 @@
 <div id="menu">
 	<nav>
 		<a
-			href="{base}"
+			href={base}
 			on:mouseover={(event) => threeScene.selectElement(event.target)}
 			on:focus={(event) => threeScene.selectElement(event.target)}>COMING</a
 		><br />
 		<a
-			href="{base}"
+			href={base}
 			on:mouseover={(event) => threeScene.selectElement(event.target)}
 			on:focus={(event) => threeScene.selectElement(event.target)}>SOON</a
 		><br />
@@ -255,10 +255,7 @@
 </div>
 
 <style>
-	@font-face {
-		font-family: DS-Digital;
-		src: url('/fonts/DS-DIGIT.ttf');
-	}
+	@import url('https://fonts.cdnfonts.com/css/ds-digital');
 	/* canvas {
 		margin: 0;
 		position: fixed;
@@ -279,7 +276,8 @@
 	}
 	#menu nav a {
 		display: inline-block;
-		font-family: DS-Digital;
+		font-family: DS-Digital, sans-serif;
+		font-weight: bold;
 		padding: 0 0.5em 0 0.5em;
 		text-decoration: none;
 		color: rgba(0, 198, 255, 0.6);

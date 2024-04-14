@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import Stats from 'stats.js';
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
 	import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -239,6 +240,12 @@
 
 		container.appendChild(threeScene.renderer.domElement);
 
+		const stats = new Stats();
+		stats.showPanel(0);
+		stats.dom.style.left = 'auto';
+		stats.dom.style.right = '0';
+		container.appendChild(stats.dom);
+
 		let lastTime = performance.now();
 		let timeDelta = 0;
 
@@ -253,6 +260,7 @@
 			leoland.animate(timeDelta);
 			arrows.animate(timeDelta);
 
+			stats.update();
 			threeScene.render();
 		});
 

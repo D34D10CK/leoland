@@ -233,18 +233,16 @@
 
 		let frame = requestAnimationFrame(function loop() {
 			const currentTime = performance.now();
-			if (!document.hidden) {
-				timeDelta = currentTime - lastTime;
-
-				stars.animate(timeDelta);
-				leoland.animate(timeDelta);
-				arrows.animate(timeDelta);
-
-				threeScene.render();
-			}
-
+			timeDelta = currentTime - lastTime;
 			lastTime = currentTime;
+
 			frame = requestAnimationFrame(loop);
+
+			stars.animate(timeDelta);
+			leoland.animate(timeDelta);
+			arrows.animate(timeDelta);
+
+			threeScene.render();
 		});
 
 		return () => cancelAnimationFrame(frame);

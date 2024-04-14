@@ -110,15 +110,26 @@
 		}
 
 		animate(timeDelta: number): void {
-			//move the stars, and wrap the point clouds once they are no longer on screen
+			// move the stars, and wrap the point clouds once they are no longer on screen
 			const timeMultiplier = timeDelta / targetFrameTime;
-			this.particles1.position.z += 10 * timeMultiplier;
-			this.particles2.position.z += 10 * timeMultiplier;
+			const particleSpeed = 10 * timeMultiplier;
+
+			// Adjust the particle positions based on the particleSpeed
+			this.particles1.position.z += particleSpeed;
+			this.particles2.position.z += particleSpeed;
+
+			// Reinitialize the particle positions when time delta is too big
+			if (this.particles1.position.z > 1015 && this.particles2.position.z > 1015) {
+				this.particles1.position.z = 15;
+				this.particles2.position.z = this.particles1.position.z - 2000;
+			}
+
+			// Wrap the particle positions when they go beyond the screen
 			if (this.particles1.position.z > 1015) {
-				this.particles1.position.z = -3015;
+				this.particles1.position.z -= 4030;
 			}
 			if (this.particles2.position.z > 1015) {
-				this.particles2.position.z = -3015;
+				this.particles2.position.z -= 4030;
 			}
 		}
 
